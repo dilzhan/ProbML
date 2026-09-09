@@ -47,7 +47,7 @@ from top to bottom. The setup cells use `Path.cwd().parent` as the project root,
 so the kernel's working directory must be `notebooks/`. In an IDE, configure the
 notebook working directory accordingly if imports or relative data paths fail.
 
-`requirements.txt` contains the pinned development environment, including
+Dependencies contains the pinned development environment, including
 PyTorch and NVIDIA CUDA packages. Installation can be large, and those pins
 are geared toward Linux. The notebooks primarily use JAX, with Equinox, Optax,
 and Laplax in notebook 8. Importing `src.gaussian` enables JAX 64-bit mode.
