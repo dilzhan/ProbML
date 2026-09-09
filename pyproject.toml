@@ -1,5 +1,5 @@
 [project]
-name = "your-project-name"
+name = "ProbML"
 version = "0.1.0"
 
 dependencies = [

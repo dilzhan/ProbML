@@ -8,23 +8,19 @@ state estimation, approximate Bayesian neural networks, and Monte Carlo sampling
 The shared implementation lives in [`src/gaussian.py`](src/gaussian.py); the
 notebooks connect the code to the underlying mathematics.
 
-**Status:** the first version is nearly complete. The final end-to-end run of
-[`9. Sampling.ipynb`](notebooks/9.%20Sampling.ipynb) is pending. Saved outputs
-are included for reading, but do not establish reproducibility from a fresh kernel.
-
 ## Reading order
 
-| # | Notebook | Topics |
-| --- | --- | --- |
-| 1 | [Gaussians](notebooks/1.%20Gaussians.ipynb) | Densities, sampling, precision, marginals, transformations, and conditioning |
-| 2 | [Bayesian Regression](notebooks/2.%20Bayesian%20Regression.ipynb) | Gaussian weight posteriors, online updates, feature maps, and Auto MPG regression |
-| 3 | [Gaussian Processes](notebooks/3.%20Gaussian%20Processes.ipynb) | Mean functions, covariance kernels, and kernel composition |
-| 4 | [GP Regression](notebooks/4.%20GP%20Regression.ipynb) | Posterior predictions, marginal likelihood, and atmospheric CO₂ regression |
-| 5 | [Kalman Filters](notebooks/5.%20Kalman%20Filters.ipynb) | State-space models, tracking, smoothing, continuous-time models, and extended Kalman filters |
-| 6 | [Exponential Families](notebooks/6.%20Exponential%20Families.ipynb) | Sufficient statistics, conjugate priors, Bernoulli–Beta and Poisson–Gamma examples |
-| 7 | [Logistic Regression](notebooks/7.%20Logistic%20Regression.ipynb) | Binary and multiclass classification, Newton's method, and Laplace approximation |
-| 8 | [Deep Learning](notebooks/8.%20Deep%20Learning.ipynb) | Neural networks, Laplax curvature, Laplace approximation, and predictive uncertainty |
-| 9 | [Sampling](notebooks/9.%20Sampling.ipynb) | Direct, rejection, and importance sampling; MH, MALA, HMC, and MCMC diagnostics |
+| #   | Notebook                                                            | Topics                                                                                       |
+| --- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1   | [Gaussians](notebooks/1.%20Gaussians.ipynb)                         | Densities, sampling, precision, marginals, transformations, and conditioning                 |
+| 2   | [Bayesian Regression](notebooks/2.%20Bayesian%20Regression.ipynb)   | Gaussian weight posteriors, online updates, feature maps, and Auto MPG regression            |
+| 3   | [Gaussian Processes](notebooks/3.%20Gaussian%20Processes.ipynb)     | Mean functions, covariance kernels, and kernel composition                                   |
+| 4   | [GP Regression](notebooks/4.%20GP%20Regression.ipynb)               | Posterior predictions, marginal likelihood, and atmospheric CO₂ regression                   |
+| 5   | [Kalman Filters](notebooks/5.%20Kalman%20Filters.ipynb)             | State-space models, tracking, smoothing, continuous-time models, and extended Kalman filters |
+| 6   | [Exponential Families](notebooks/6.%20Exponential%20Families.ipynb) | Sufficient statistics, conjugate priors, Bernoulli–Beta and Poisson–Gamma examples           |
+| 7   | [Logistic Regression](notebooks/7.%20Logistic%20Regression.ipynb)   | Binary and multiclass classification, Newton's method, and Laplace approximation             |
+| 8   | [Deep Learning](notebooks/8.%20Deep%20Learning.ipynb)               | Neural networks, Laplax curvature, Laplace approximation, and predictive uncertainty         |
+| 9   | [Sampling](notebooks/9.%20Sampling.ipynb)                           | Direct, rejection, and importance sampling; MH, MALA, HMC, and MCMC diagnostics              |
 
 Familiarity with Python, linear algebra, calculus, and basic probability is useful.
 Read the notebooks in order to follow the progression of ideas.
@@ -38,7 +34,7 @@ repository root, create and activate an environment:
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+python -m pip install -e .
 python -m ipykernel install --user --name prob-ml --display-name "Python (prob-ml)"
 python -m jupyterlab
 ```
@@ -58,14 +54,14 @@ and Laplax in notebook 8. Importing `src.gaussian` enables JAX 64-bit mode.
 
 ## Shared code
 
-| Class | Purpose |
-| --- | --- |
-| `Gaussian` | Gaussian densities, sampling, scalar marginals, arithmetic, linear conditioning, and online regression updates |
-| `GaussianProcess` | Finite-dimensional Gaussian evaluations and conditioning |
-| `ParametricGaussianProcess` | Processes induced by feature maps and Gaussian weight priors |
-| `ConditionalGaussianProcess` | Posterior mean and covariance after observing noisy data |
-| `ExponentialFamily` | Abstract interface for sufficient statistics, log densities, and conjugate updates |
-| `ConjugateFamily` | Conjugate-prior representation for an exponential-family likelihood |
+| Class                        | Purpose                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Gaussian`                   | Gaussian densities, sampling, scalar marginals, arithmetic, linear conditioning, and online regression updates |
+| `GaussianProcess`            | Finite-dimensional Gaussian evaluations and conditioning                                                       |
+| `ParametricGaussianProcess`  | Processes induced by feature maps and Gaussian weight priors                                                   |
+| `ConditionalGaussianProcess` | Posterior mean and covariance after observing noisy data                                                       |
+| `ExponentialFamily`          | Abstract interface for sufficient statistics, log densities, and conjugate updates                             |
+| `ConjugateFamily`            | Conjugate-prior representation for an exponential-family likelihood                                            |
 
 For example, run this from the repository root:
 
@@ -100,29 +96,3 @@ small covariance jitter for numerical stability.
 - Other examples use synthetic data or scikit-learn datasets such as Iris.
 - Neural-network training and sampling experiments can take substantially
   longer than the introductory notebooks. No full-series runtime is claimed.
-
-To execute the final notebook into a separate, ignored output directory, run
-from the repository root with the environment activated:
-
-```bash
-mkdir -p outputs
-python -m jupyter nbconvert --to notebook --execute \
-  --ExecutePreprocessor.kernel_name=prob-ml \
-  --ExecutePreprocessor.timeout=-1 \
-  --output-dir=outputs "notebooks/9. Sampling.ipynb"
-```
-
-Inspect the executed notebook before replacing the committed copy. The unlimited
-cell timeout above allows long sampling experiments to finish.
-
-## Repository checks and contributions
-
-GitHub Actions checks Python syntax and notebook structure on pushes and pull
-requests. It does **not** execute experiments or verify numerical results.
-Run the same checks locally with:
-
-```bash
-python scripts/check_repository.py
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for reporting issues and proposing changes.
