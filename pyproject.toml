@@ -1,0 +1,6 @@
+[tool.ruff.lint]
+ignore = [
+    "F722",  # jaxtyping shape annotations
+    "F821",  # jaxtyping dimension names
+    "UP037", # jaxtyping shape strings must stay quoted
+]
