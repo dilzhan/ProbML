@@ -31,3 +31,9 @@ results/
 Thumbs.db
 *.swp
 *~
+
+V2 notebook idea*
+CONTRIBUTING.md
+requirements.txt
+.prettierrc
+scripts/
